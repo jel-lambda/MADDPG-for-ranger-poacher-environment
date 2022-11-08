@@ -37,7 +37,6 @@ def compute_q_loss(q, target_q):
     :return q_loss: (tensorflow Tensor) Loss of the critic network. Shape: ().
     '''
     q_loss = tf.square(q - target_q)
-    # TODO
     return q_loss
 
 
@@ -88,7 +87,6 @@ def construct_p_function(agent_index, obs_n, action_dim):
     :return p_input: (tensorflow Tensor) Batched input to the actor network for this agent. Shape: (batch_size, ???).
     :return num_p_outputs: (int) Number of outputs of the actor network.
     '''
-    # TODO
     p_input = obs_n[agent_index]
     num_p_outputs = action_dim
     
@@ -102,8 +100,7 @@ def compute_p_loss(q):
 
     :return pg_loss: (tensorflow Tensor) Loss of the actor network. Shape: ().
     '''
-    # TODO
-    pg_loss = -tf.reduce_mean(q)
+    pg_loss = -(tf.reduce_mean(q))
     
     return pg_loss
 
