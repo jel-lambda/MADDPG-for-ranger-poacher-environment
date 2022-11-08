@@ -174,21 +174,11 @@ def compute_q_targets(agent_index, rew, done, obs_next_n, target_policy_func_n, 
     :return target_q: (numpy.ndarray) Batched target Q-values for this agent. Shape: (batch_size,).
     '''
     # TODO
-    # First, find each agent's target action for the next step.
-    # target_action = []
-    # for i in range(len(target_policy_func_n)):
-    #     target_action.append(target_policy_func_n[i](obs_next_n[i]))
-    
-    # target_q_next = target_q_func(obs_next_n[0], obs_next_n[1], target_action[0], target_action[1])
-    
-
-    # Then, find the target Q-value for the next step. Note: If the episode is done, the target Q-value for the next step should be 0.
-    target_q_next = np.zeros_like(rew)
+    target_action = []
     for i in range(len(obs_next_n)):
-        if i != agent_index:
-            target_q_next += target_q_func(obs_next_n[i], target_policy_func_n[i](obs_next_n[i]))
+        target_action.append(target_policy_func_n[i](obs_next_n[i]))
     # Then, calculate the target Q-value for this step using the immediate reward and the discount factor.
-    target_q = rew + gamma * target_q_next * (1 - done)
+    target_q = rew + gamma * target_q_func(*(obs_next_n + target_action)) * (1 - done)
     return target_q
 
 
