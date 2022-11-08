@@ -122,6 +122,10 @@ class Scenario(BaseScenario):
             return agent.poacher_caught_rew
         elif world.was_animal_caught:
             return agent.animal_caught_rew
+        elif world.was_animal_caught and world.was_poacher_caught:
+            return agent.poacher_caught_rew + agent.animal_caught_rew
+        elif agent.caught:
+            return -0.1
         else:
             return 0
 
